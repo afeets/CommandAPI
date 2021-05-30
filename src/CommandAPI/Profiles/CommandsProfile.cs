@@ -10,8 +10,10 @@ namespace CommandAPI.Profiles
         // create constructor
         public CommandsProfile()
         {
-            // use createmap method to map Command to CommandReadDto
+            // use createmap method to map Source to Target
             CreateMap<Command, CommandReadDto>();
+            CreateMap<CommandCreateDto, Command>();
+
         }
     }
 }

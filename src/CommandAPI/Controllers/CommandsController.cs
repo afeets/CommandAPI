@@ -30,7 +30,8 @@ namespace CommandAPI.Controllers
             return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(commandItems));
         }
 
-        [HttpGet("{id}")]
+        // name action, in order for any call to CreatedAtRoute to work
+        [HttpGet("{id}", Name = "GetCommandById")]
         public ActionResult<CommandReadDto> GetCommandById(int id)
         {
             var commandItem = _repository.GetCommandById(id);
@@ -41,6 +42,19 @@ namespace CommandAPI.Controllers
             return Ok(_mapper.Map<CommandReadDto>(commandItem));
         }
 
+
+        [HttpPost]
+        public ActionResult <CommandReadDto> CreateCommand (CommandCreateDto commandCreateDto)
+        {
+            var commandModel = _mapper.Map<Command>(commandCreateDto);
+            _repository.CreateCommand(commandModel);
+            _repository.SaveChanges();
+
+            var CommandReadDto = _mapper.Map<CommandReadDto>(commandModel);
+
+            return CreatedAtRoute(nameof(GetCommandById), 
+                new { Id = CommandReadDto.Id }, CommandReadDto);
+        }
        /*  
        [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
