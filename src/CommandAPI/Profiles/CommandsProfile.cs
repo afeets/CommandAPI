@@ -13,7 +13,8 @@ namespace CommandAPI.Profiles
             // use createmap method to map Source to Target
             CreateMap<Command, CommandReadDto>();
             CreateMap<CommandCreateDto, Command>();
-
+            CreateMap<CommandUpdateDto, Command>();
+            CreateMap<Command, CommandUpdateDto>();
         }
     }
 }
