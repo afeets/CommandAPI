@@ -1,10 +1,16 @@
 version: '3'
 
 services:
-  db:
+  pg:
     image: postgres:13.1
     restart: always
     environment:
       POSTGRES_PASSWORD: Password1!
     ports:
       - 5432:5432
+    volumes:
+      - data-postgresql:/var/lib/postgresql/data
+  
+volumes:
+  data-postgresql:
+    external: true
